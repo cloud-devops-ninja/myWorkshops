@@ -4,8 +4,8 @@ After we have a good feel of the Graph API call settings and the expected respon
   
 This exercise let's you play around with the Invoke-RestMethod by using a basic REST API template for PowerShell
   
-<u>Exercise:</u> Start your favorite PowerShell editor<br>
-<u>Exercise:</u> Build your Graph API Authentication call in PowerShell, using the below template<br>  
+<u><b>Exercise:</b></u> Start your favorite PowerShell editor<br>
+<u><b>Exercise:</b></u> Build your Graph API Authentication call in PowerShell, using the below template<br>  
 
 ```powerShell
 # URL for the REST API call
@@ -28,7 +28,7 @@ $restResponse = Invoke-RestMethod -Uri $restUri -Method $restMethod -Body $restB
 ```
 <br>  
 
-<u>Exercise:</u> Build your Graph API call to retrieve the Group ID in PowerShell, using the below template<br>  
+<u><b>Exercise:</b></u> Build your Graph API call to retrieve the Group ID in PowerShell, using the below template<br>  
 
 ```powerShell
 # URL for the REST API call
@@ -47,15 +47,14 @@ $restHeaders = @{
 $restResponse = Invoke-RestMethod -Method $restMethod -Uri $restUri -Headers $restHeaders
 ```
 <br>  
-Note: You can find the PowerShell workflow for creating the Intune Provisioning Policy <a href='https://github.com/cloud-devops-ninja/myWorkshops/blob/main/GraphAPI_StarterKit/Exercises/Exercise03/02_W365_Create_Provisioning_Policy.ps1' target="_blank">here</a><br>  
-
-<br>  <br>
 
 ![01_ANSWER_WF_W365_Create_ProvPol.png](01_ANSWER_WF_W365_Create_ProvPol.png)<br>  
-<br>  
-Note: You can find the PowerShell workflow for adding a user to a Entra Group <a href='https://github.com/cloud-devops-ninja/myWorkshops/blob/main/GraphAPI_StarterKit/Exercises/Exercise03/03_W365_Provision_CloudPC_to_User.ps1' target="_blank">here</a><br>  
 
-<br>  <br>
+<i>Note: You can find the PowerShell workflow for creating the Intune Provisioning Policy <a href='https://github.com/cloud-devops-ninja/myWorkshops/blob/main/GraphAPI_StarterKit/Exercises/Exercise03/02_W365_Create_Provisioning_Policy.ps1' target="_blank">here</a></i><br>  
+<br>  
 
 ![02_ANSWER_WF_W365_AssignCloudPC_to_User.png](02_ANSWER_WF_W365_AssignCloudPC_to_User.png)<br>  
+
+<i>Note: You can find the PowerShell workflow for adding a user to a Entra Group <a href='https://github.com/cloud-devops-ninja/myWorkshops/blob/main/GraphAPI_StarterKit/Exercises/Exercise03/03_W365_Provision_CloudPC_to_User.ps1' target="_blank">here</a></i><br>  
+<br>
   
