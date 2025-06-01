@@ -10,7 +10,7 @@ This exercise will make you familiar with the Graph API Reference documentation,
 ### Create an Intune provisioning policy and assign a group ###
 The first processflow focuses on creating the Intune provisioning policy for a frontline Cloud PC and assigns a Entra group to this policy.<br>  
 ![01_PF_W365_Create_ProvPol.png](01_PF_W365_Create_ProvPol.png)<br>  
-Based on the Graph API Reference documentation, translate the processflow to a workflow that contains each step, corresponding to a Graph API call, and the call details for each step<br>  
+<u>Exercise:</u> Based on the Graph API Reference documentation, translate the processflow to a workflow that contains each step, corresponding to a Graph API call, and the call details for each step:<br>  
 
 <details>
     <summary>
@@ -121,6 +121,8 @@ Based on the Graph API Reference documentation, translate the processflow to a w
 ### Add a user to a (Cloud PC provisioning) group ###
 The second processflow focuses on adding a user to the assigned group of an Intune provisioning policy to automatically provision a Cloud PC to the user.<br>  
 ![02_PF_W365_AssignCloudPC_to_User.png](02_PF_W365_AssignCloudPC_to_User.png)<br>  
+<u>Exercise:</u> Based on the Graph API Reference documentation, translate the processflow to a workflow that contains each step, corresponding to a Graph API call, and the call details for each step:<br>  
+
 <details>
     <summary>
         Answer
