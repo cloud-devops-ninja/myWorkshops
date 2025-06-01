@@ -4,16 +4,16 @@ To understand each Graph API call, I love to use Postman to not just test the co
   
 This exercise let's you play around with the API calls in Postman and shares some additional Postman 'secrets', like using Post-Request scripts to store response output into variables that can easily be used in subsequential calls.
   
-<u>Exercise:</u> Sign up for a free <a href='https://www.postman.com/' target='_new'>Postman</a> account<br>  
-<u>Exercise:</u> Sign in to use the <a href='https://www.postman.com/' target='_new'>Postman</a> web console<br>  
+<ins>Exercise:</ins> Sign up for a free <a href='https://www.postman.com/' target='_new'>Postman</a> account<br>  
+<ins>Exercise:</ins> Sign in to use the <a href='https://www.postman.com/' target='_new'>Postman</a> web console<br>  
 
 ## Postman environments ##
-<u>Exercise:</u> Select the Environments tab and click on [Import] to open the ExpertsLiveNL_GraphAPI_Workshop.postman_environment.json and preload the required credentials for the Graph API calls<br>  
+<ins>Exercise:</ins> Select the Environments tab and click on [Import] to open the ExpertsLiveNL_GraphAPI_Workshop.postman_environment.json and preload the required credentials for the Graph API calls<br>  
 The JSON file with the Collection of Graph API calls can be found here: <a href='https://github.com/cloud-devops-ninja/myWorkshops/blob/main/GraphAPI_StarterKit/Exercises/Exercise02/ExpertsLiveNL_GraphAPI_Workshop.postman_environment.json' target="_blank">ExpertsLiveNL_GraphAPI_Workshop.postman_environment.json</a><br><br>
 <i>Note: Make sure the environment is actively selected (top right dropbox should show your environment name and not the text 'No environment')</i><br><br>
 
 ## Postman workspace ##
-<u>Exercise:</u> Select the Collections tab and click on [+] to create your first (blank) collection<br>  
+<ins>Exercise:</ins> Select the Collections tab and click on [+] to create your first (blank) collection<br>  
     <ul>
     <li><a href='https://learn.microsoft.com/en-us/graph/auth-v2-user?view=graph-rest-1.0&tabs=http#step-2-request-an-access-token' target='_blank'>Graph Authentication:</a></li>
     <p>Note: Keep in mind that this is a special Graph API call to authenticate and retrieve a bearer token for future calls.</p>
