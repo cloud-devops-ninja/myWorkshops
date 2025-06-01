@@ -2,10 +2,11 @@
 
 After we have a good feel of the Graph API call settings and the expected response, we can translate the Postman API calls to REST API Powershell calls, using the builtin cmdlet <a href='https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod?view=powershell-7.5' target="_blank">Invoke-RestMethod</a>.<br>  
   
-This exercise let's you play around with the Invoke-RestMethod by using a basic REST API template for PowerShell
-  
-<u><b>Exercise:</b></u> Start your favorite PowerShell editor<br>
-<u><b>Exercise:</b></u> Build your Graph API Authentication call in PowerShell, using the below template<br>  
+<p>This exercise let's you play around with the Invoke-RestMethod by using a basic REST API template for PowerShell<br>  
+
+<ins><b>Exercise:</b></ins> Start your favorite PowerShell editor<br>
+<ins><b>Exercise:</b></ins> Build your Graph API Authentication call in PowerShell, using the below template<br>  
+</p>
 
 ```powerShell
 # URL for the REST API call
@@ -28,7 +29,7 @@ $restResponse = Invoke-RestMethod -Uri $restUri -Method $restMethod -Body $restB
 ```
 <br>  
 
-<u><b>Exercise:</b></u> Build your Graph API call to retrieve the Group ID in PowerShell, using the below template<br>  
+<ins><b>Exercise:</b></ins> Build your Graph API call to retrieve the Group ID in PowerShell, using the below template<br>  
 
 ```powerShell
 # URL for the REST API call
