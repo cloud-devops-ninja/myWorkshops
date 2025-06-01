@@ -847,7 +847,7 @@
 											}
 										],
 										"url": {
-											"raw": "https://graph.microsoft.com/{{version-1.0}}/deviceManagement/virtualEndpoint/cloudPCs",
+											"raw": "https://graph.microsoft.com/v1.0/deviceManagement/virtualEndpoint/cloudPCs",
 											"protocol": "https",
 											"host": [
 												"graph",
@@ -855,7 +855,7 @@
 												"com"
 											],
 											"path": [
-												"{{version-1.0}}",
+												"v1.0",
 												"deviceManagement",
 												"virtualEndpoint",
 												"cloudPCs"
@@ -863,7 +863,7 @@
 											"query": [
 												{
 													"key": "$filter",
-													"value": "startswith(displayName, 'test01')",
+													"value": "startswith(displayName, 'expert01')",
 													"disabled": true
 												},
 												{
