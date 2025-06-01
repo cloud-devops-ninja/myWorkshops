@@ -16,6 +16,7 @@ The first processflow focuses on creating the Intune provisioning policy for a f
     <summary>
         Answer
     </summary>
+    A visual of the workflow can be found here: <a href='https://github.com/cloud-devops-ninja/myWorkshops/blob/main/GraphAPI_StarterKit/Exercises/Exercise01/01_ANSWER_WF_W365_Create_ProvPol.png' target='_new'>01_ANSWER_WF_W365_Create_ProvPol.png</a><br><br>  
     The workflow for the Graph API call will consist of the following steps:
     <ul>
     <li><a href='https://learn.microsoft.com/en-us/graph/auth-v2-user?view=graph-rest-1.0&tabs=http#step-2-request-an-access-token' target='_blank'>Graph Authentication:</a></li>
@@ -127,6 +128,7 @@ The second processflow focuses on adding a user to the assigned group of an Intu
     <summary>
         Answer
     </summary>
+    A visual of the workflow can be found here: <a href='https://github.com/cloud-devops-ninja/myWorkshops/blob/main/GraphAPI_StarterKit/Exercises/Exercise01/02_ANSWER_WF_W365_AssignCloudPC_to_User.png' target='_new'>02_ANSWER_WF_W365_AssignCloudPC_to_User.png</a><br><br>  
     The workflow for the Graph API call will consist of the following steps:
     <ul>
     <li><a href='https://learn.microsoft.com/en-us/graph/auth-v2-user?view=graph-rest-1.0&tabs=http#step-2-request-an-access-token' target='_blank'>Graph Authentication:</a></li>

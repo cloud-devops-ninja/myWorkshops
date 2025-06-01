@@ -1,0 +1,973 @@
+{
+	"info": {
+		"_postman_id": "8bfb4446-3c83-42ab-8b01-0b44c784bab1",
+		"name": "ExpertsLiveNL_GraphAPI_Workshop",
+		"description": "This collection contains demo scripts shown during the ExpertsLive Graph API Startkit for AVD & W365 session.\n\nMore information on post-response javascripts, can be found here: [Postman Docs - Write Tests](https://learning.postman.com/docs/tests-and-scripts/write-scripts/test-scripts/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "914877",
+		"_collection_link": "https://graphapiworkshopteam.postman.co/workspace/Graph_API_W365_workshop~7d64976f-338e-4a2b-b4b7-5e964b8a58eb/collection/914877-8bfb4446-3c83-42ab-8b01-0b44c784bab1?action=share&source=collection_link&creator=914877"
+	},
+	"item": [
+		{
+			"name": "Windows365",
+			"item": [
+				{
+					"name": "Exercise02",
+					"item": [
+						{
+							"name": "01. Create W365 CloudPC Provisioning Policy",
+							"item": [
+								{
+									"name": "00. Graph: Get Bearer Token (oAuth)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the Graph BearerToken into a global variable",
+													"pm.test(pm.info.requestName, () => {",
+													"    pm.response.to.not.be.error;",
+													"    pm.response.to.not.have.jsonBody('error');",
+													"});",
+													"pm.globals.set(\"graphBearerToken\", pm.response.json().access_token);",
+													"",
+													"// output to console",
+													"console.log('Step 00 - graph BearerToken: '+ pm.response.json().access_token.substring(0,25) + '...');"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/x-www-form-urlencoded"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "client_id",
+													"value": "{{clientId}}",
+													"type": "text"
+												},
+												{
+													"key": "client_secret",
+													"value": "{{clientSecret}}",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "https://graph.microsoft.com/.default",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/token",
+											"protocol": "https",
+											"host": [
+												"login",
+												"microsoftonline",
+												"com"
+											],
+											"path": [
+												"{{tenantId}}",
+												"oauth2",
+												"v2.0",
+												"token"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "01. Graph: Get group ID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the CloudPC Entra Group ID into an environment variable\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"pm.environment.set(\"cpc-group-id\", pm.response.json().value[0].id);\r",
+													"\r",
+													"// output to console\r",
+													"console.log('Step 01 - CloudPC Group ID: '+  pm.response.json().value[0].id);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/groups?$filter=startswith(displayName, 'grp-sec-W365Users-01')&$top=1&$select=id, displayName,description",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"groups"
+											],
+											"query": [
+												{
+													"key": "$filter",
+													"value": "startswith(displayName, 'grp-sec-W365Users-01')"
+												},
+												{
+													"key": "$top",
+													"value": "1"
+												},
+												{
+													"key": "$select",
+													"value": "id, displayName,description"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "02. Graph: Get Gallery Image",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the CloudPC Gallery Image ID into an environment variable\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"pm.environment.set(\"cpc-gallery-image-id\", pm.response.json().value[0].id);\r",
+													"\r",
+													"// output to console\r",
+													"console.log('Step 02 - CloudPC Gallery Image ID: '+  pm.response.json().value[0].id);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/deviceManagement/virtualEndpoint/galleryImages?$filter=startswith(skuName, 'win11-23h2-ent-cpc-m365')&$select=id, publisherName,offerName,skuName,displayName,sizeInGB,status",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"deviceManagement",
+												"virtualEndpoint",
+												"galleryImages"
+											],
+											"query": [
+												{
+													"key": "$filter",
+													"value": "startswith(skuName, 'win11-23h2-ent-cpc-m365')"
+												},
+												{
+													"key": "$select",
+													"value": "id, publisherName,offerName,skuName,displayName,sizeInGB,status"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "03. Graph: Get Frontline ServicePlan",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the CloudPC Frontline Serviceplan ID into an environment variable\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"pm.environment.set(\"cpc-frontline-serviceplan-id\", pm.response.json().value[0].id);\r",
+													"\r",
+													"// output to console\r",
+													"console.log('Step 03 - CloudPC Frontline Serviceplan ID: '+  pm.response.json().value[0].id);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/beta/deviceManagement/virtualEndpoint/frontlineServicePlans?$filter=startswith(displayName, 'Cloud PC Frontline 2vCPU')",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"beta",
+												"deviceManagement",
+												"virtualEndpoint",
+												"frontlineServicePlans"
+											],
+											"query": [
+												{
+													"key": "$filter",
+													"value": "startswith(displayName, 'Cloud PC Frontline 2vCPU')"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "04. Graph: Create CloudPC Provisioning policy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the CloudPC Intune Provisioning Policy ID into an environment variable\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"pm.environment.set(\"cpc-provisioning-policy-id\", pm.response.json().id);\r",
+													"\r",
+													"// output to console\r",
+													"console.log('Step 04 - CloudPC Provisioning policy ID: '+  pm.response.json().id);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"@odata.type\": \"#microsoft.graph.cloudPcProvisioningPolicy\",\r\n    \"description\": \"Windows 365 CloudPC Frontline Provisioning Policy\",\r\n    \"displayName\": \"CPC-W365-Frontline-Provisioning-01\",\r\n    \"domainJoinConfigurations\": [\r\n        {\r\n            \"domainJoinType\": \"azureADJoin\",\r\n            \"regionName\": \"automatic\",\r\n            \"onPremisesConnectionId\": null,\r\n            \"regionGroup\": \"europeUnion\"\r\n        }\r\n    ],\r\n    \"enableSingleSignOn\": true,\r\n    \"imageDisplayName\": \"win11-23h2-ent-cpc-m365\",\r\n    \"imageId\": \"{{cpc-gallery-image-id}}\",\r\n    \"imageType\": \"gallery\",\r\n    \"cloudPcNamingTemplate\": \"CPC-%USERNAME:5%-%RAND:5%\",\r\n    \"windowsSetting\": {\r\n        \"locale\": \"en-US\"\r\n    },\r\n    \"microsoftManagedDesktop\": {\r\n        \"managedType\": \"notManaged\",\r\n        \"profile\": \"\"\r\n    },\r\n    \"provisioningType\": \"shared\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/deviceManagement/virtualEndpoint/provisioningPolicies",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"deviceManagement",
+												"virtualEndpoint",
+												"provisioningPolicies"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "05. Graph: Assign CloudPC License & Entra Group to Provisioning policy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to show a message in the output console\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"\r",
+													"// output to console\r",
+													"if(pm.response.code.toString().startsWith('204')){\r",
+													"    console.log('Step 05 - Group and Serviceplan assigned to policy');\r",
+													"}"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"assignments\": [\r\n    {\r\n      \"target\": {\r\n        \"@odata.type\": \"microsoft.graph.cloudPcManagementGroupAssignmentTarget\",\r\n        \"groupId\": \"{{cpc-group-id}}\",\r\n        \"servicePlanId\": \"{{cpc-frontline-serviceplan-id}}\"\r\n      }\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/deviceManagement/virtualEndpoint/provisioningPolicies/{{cpc-provisioning-policy-id}}/assign",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"deviceManagement",
+												"virtualEndpoint",
+												"provisioningPolicies",
+												"{{cpc-provisioning-policy-id}}",
+												"assign"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "xx. Graph: Get metadata",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/$metadata",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"$metadata"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "xx. Graph: Get CloudPC Provisioning policy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the CloudPC Intune Provisioning Policy ID into an environment variable\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"//pm.environment.set(\"cpc-provisioning-policy-id\", pm.response.json().value[0].id);\r",
+													"\r",
+													"// output to console\r",
+													"//console.log('Step 04 - CloudPC Provisioning policy ID: '+  pm.response.json().value[0].id);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/deviceManagement/virtualEndpoint/provisioningPolicies?$filter=startswith(displayName, 'CPC-W365-Frontline-Provisioning-01')",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"deviceManagement",
+												"virtualEndpoint",
+												"provisioningPolicies"
+											],
+											"query": [
+												{
+													"key": "$filter",
+													"value": "startswith(displayName, 'CPC-W365-Frontline-Provisioning-01')"
+												},
+												{
+													"key": "$top",
+													"value": "1",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "xx. Graph: Get provisioned CloudPC",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/beta/deviceManagement/virtualEndpoint/cloudPCs/getProvisionedCloudPCs(groupId='{{cpc-group-id}}',servicePlanId='{{cpc-frontline-serviceplan-id}}')?$expand=*",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"beta",
+												"deviceManagement",
+												"virtualEndpoint",
+												"cloudPCs",
+												"getProvisionedCloudPCs(groupId='{{cpc-group-id}}',servicePlanId='{{cpc-frontline-serviceplan-id}}')"
+											],
+											"query": [
+												{
+													"key": "$top",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "$select",
+													"value": "id, publisherName,offerName,skuName,displayName,sizeInGB,status",
+													"disabled": true
+												},
+												{
+													"key": "$expand",
+													"value": "*"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "02. Provision CloudPC to User",
+							"item": [
+								{
+									"name": "00. Graph: Get Bearer Token (oAuth)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the Graph BearerToken into a global variable",
+													"pm.test(pm.info.requestName, () => {",
+													"    pm.response.to.not.be.error;",
+													"    pm.response.to.not.have.jsonBody('error');",
+													"});",
+													"pm.globals.set(\"graphBearerToken\", pm.response.json().access_token);",
+													"// output to console",
+													"console.log('Step 00 - graph BearerToken: '+ pm.response.json().access_token.substring(0,25) + '...');"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/x-www-form-urlencoded"
+											}
+										],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "grant_type",
+													"value": "client_credentials",
+													"type": "text"
+												},
+												{
+													"key": "client_id",
+													"value": "{{clientId}}",
+													"type": "text"
+												},
+												{
+													"key": "client_secret",
+													"value": "{{clientSecret}}",
+													"type": "text"
+												},
+												{
+													"key": "scope",
+													"value": "https://graph.microsoft.com/.default",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "https://login.microsoftonline.com/{{tenantId}}/oauth2/v2.0/token",
+											"protocol": "https",
+											"host": [
+												"login",
+												"microsoftonline",
+												"com"
+											],
+											"path": [
+												"{{tenantId}}",
+												"oauth2",
+												"v2.0",
+												"token"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "01. Graph: Get group ID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the CloudPC Entra Group ID into an environment variable\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"pm.environment.set(\"cpc-group-id\", pm.response.json().value[0].id);\r",
+													"\r",
+													"// output to console\r",
+													"console.log('Step 01 - CloudPC Group ID: '+  pm.response.json().value[0].id);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/groups?$filter=startswith(displayName, 'grp-sec-W365Users-01')&$top=1&$select=id, displayName,description",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"groups"
+											],
+											"query": [
+												{
+													"key": "$filter",
+													"value": "startswith(displayName, 'grp-sec-W365Users-01')"
+												},
+												{
+													"key": "$top",
+													"value": "1"
+												},
+												{
+													"key": "$select",
+													"value": "id, displayName,description"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "02. Graph: Get user ID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to store the CloudPC Entra User ID into an environment variable\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"pm.environment.set(\"cpc-user-id\", pm.response.json().id);\r",
+													"\r",
+													"// output to console\r",
+													"console.log('Step 02 - CloudPC User ID: '+  pm.response.json().id);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/users/expert01@cognitionitdev.onmicrosoft.com",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"users",
+												"expert01@cognitionitdev.onmicrosoft.com"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "03. Graph - Add Member to Group",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// post-request script to show a message in the console that a user was successfully added to the specified group\r",
+													"pm.test(pm.info.requestName, () => {\r",
+													"    pm.response.to.not.be.error;\r",
+													"    pm.response.to.not.have.jsonBody('error');\r",
+													"});\r",
+													"\r",
+													"// output to console\r",
+													"if(pm.response.code.toString().startsWith('204')){\r",
+													"    console.log('Step 03 - User added to Group');\r",
+													"}"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"@odata.id\": \"https://graph.microsoft.com/v1.0/directoryObjects/{{cpc-user-id}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/groups/{{cpc-group-id}}/members/$ref",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"groups",
+												"{{cpc-group-id}}",
+												"members",
+												"$ref"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "xx. Graph: List CloudPC",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/{{version-1.0}}/deviceManagement/virtualEndpoint/cloudPCs",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"{{version-1.0}}",
+												"deviceManagement",
+												"virtualEndpoint",
+												"cloudPCs"
+											],
+											"query": [
+												{
+													"key": "$filter",
+													"value": "startswith(displayName, 'test01')",
+													"disabled": true
+												},
+												{
+													"key": "$top",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "$select",
+													"value": "id, displayName,imageDisplayName,servicePlanName,userPrincipalName,provisioningPolicyName,provisioningType",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "xx. Graph: Get provisioned CloudPC",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer  {{graphBearerToken}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://graph.microsoft.com/beta/deviceManagement/virtualEndpoint/cloudPCs/getProvisionedCloudPCs(groupId='{{cpc-group-id}}',servicePlanId='{{cpc-frontline-serviceplan-id}}')?$expand=*",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"beta",
+												"deviceManagement",
+												"virtualEndpoint",
+												"cloudPCs",
+												"getProvisionedCloudPCs(groupId='{{cpc-group-id}}',servicePlanId='{{cpc-frontline-serviceplan-id}}')"
+											],
+											"query": [
+												{
+													"key": "$top",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "$select",
+													"value": "id, publisherName,offerName,skuName,displayName,sizeInGB,status",
+													"disabled": true
+												},
+												{
+													"key": "$expand",
+													"value": "*"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": []
+}
