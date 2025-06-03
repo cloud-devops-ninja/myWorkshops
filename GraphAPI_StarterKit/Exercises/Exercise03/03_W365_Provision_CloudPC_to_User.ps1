@@ -3,7 +3,7 @@
 $tenantId = '*****'
 # Get Service Principal information
 $clientId = '*****
-$clientSecret = '*****'#endregion
+$clientSecret = '*****'
 #endregion
 
 #region Step 00 - Connect to Microsoft Graph API (retrieve bearer token)
