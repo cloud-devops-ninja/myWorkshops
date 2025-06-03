@@ -2,7 +2,7 @@
 # Get Tenant information
 $tenantId = '*****'
 # Get Service Principal information
-$clientId = '*****
+$clientId = '*****'
 $clientSecret = '*****'
 #endregion
 
