@@ -1,9 +1,9 @@
 #region Get Credentials from Azure Key Vault
 # Get Tenant information
-$tenantId = 'bde1ace5-f48b-45bd-b6b1-6b11fa1db36c'
+$tenantId = '*****'
 # Get Service Principal information
-$clientId = '43069f0a-dad2-4105-8f1d-f420319f4f7a'
-$clientSecret = 'cJZ8Q~_6ShNgdjsxKv.NvyG8vy9v6~XxOInFyaYw'#endregion
+$clientId = '*****
+$clientSecret = '*****'#endregion
 #endregion
 
 #region Step 00 - Connect to Microsoft Graph API (retrieve bearer token)
